@@ -31,7 +31,7 @@ public class Principal extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMcadastrar = new javax.swing.JMenuItem();
         jcbdeletar = new javax.swing.JCheckBoxMenuItem();
-        jMalterar = new javax.swing.JMenuItem();
+        jMlistar = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
@@ -68,15 +68,20 @@ public class Principal extends javax.swing.JFrame {
         });
         jMenu1.add(jcbdeletar);
 
-        jMalterar.setText("Alterar");
-        jMalterar.addActionListener(new java.awt.event.ActionListener() {
+        jMlistar.setText("Alterar");
+        jMlistar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMalterarActionPerformed(evt);
+                jMlistarActionPerformed(evt);
             }
         });
-        jMenu1.add(jMalterar);
+        jMenu1.add(jMlistar);
 
         jMenuItem3.setText("Listar");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem3);
 
         jMenuBar1.add(jMenu1);
@@ -145,10 +150,15 @@ public class Principal extends javax.swing.JFrame {
         cl.show();
     }//GEN-LAST:event_jMcadastrarActionPerformed
 
-    private void jMalterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMalterarActionPerformed
+    private void jMlistarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMlistarActionPerformed
         AlterarLivro al = new AlterarLivro();
         al.show();
-    }//GEN-LAST:event_jMalterarActionPerformed
+    }//GEN-LAST:event_jMlistarActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+       ListarLivro ll = new ListarLivro();
+       ll.show();
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -187,7 +197,6 @@ public class Principal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JMenuItem jMalterar;
     private javax.swing.JMenuItem jMcadastrar;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -202,6 +211,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
+    private javax.swing.JMenuItem jMlistar;
     private javax.swing.JCheckBoxMenuItem jcbdeletar;
     // End of variables declaration//GEN-END:variables
 }

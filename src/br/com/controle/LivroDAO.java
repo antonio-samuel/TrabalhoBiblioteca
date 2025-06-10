@@ -1,8 +1,9 @@
 package br.com.controle;
 
-
+import br.com.controle.DAO;
 import br.com.modelo.Livro;
 import com.mysql.cj.jdbc.CallableStatement;
+import com.sun.jdi.connect.spi.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -165,9 +166,13 @@ public class LivroDAO extends DAO {
     
     try {
         DAO dao = new DAO();
-        CallableStatement stmt = (CallableStatement) con.prepareCall("{ call listar_livros_completo() }");
+        dao.abrirBanco();
+        Connection con = (Connection) dao.getCon(); // <- aqui está o segredo
+
+        CallableStatement stmt;
+        stmt = con.prepareCall("{ call listar_livros_completo() }");
         ResultSet rs = stmt.executeQuery();
-        
+
         while (rs.next()) {
             Livro l = new Livro();
             l.setId(rs.getInt("id"));
@@ -176,17 +181,17 @@ public class LivroDAO extends DAO {
             l.setValor(rs.getDouble("valor"));
             l.setNomeCategoria(rs.getString("nomeCategoria"));
             l.setNomeAutor(rs.getString("nomeAutor"));
-            
+
             lista.add(l);
         }
-        
+
         rs.close();
         stmt.close();
         con.close();
     } catch (Exception e) {
         System.out.println("Erro ao listar livros com procedure: " + e.getMessage());
     }
-    
+
     return lista;
 }
 

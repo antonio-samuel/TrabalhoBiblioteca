@@ -17,12 +17,13 @@ import java.util.logging.Logger;
  * @author anton
  */
 public class DAO {
+
     Connection con;// criação do objeto conexao
     PreparedStatement pst;//criação do objeto preparação de ambiente
     ResultSet rs;// criação do objeto que recebe resultados
     public void abrirBanco() throws SQLException {// criando metodo para acessar o banco
       try {
-        Class.forName("com.mysql.jdbc.Driver");//classe para utilização do arquivo com configurções do serivdor mysql
+        Class.forName("Class.forName(\"com.mysql.cj.jdbc.Driver\");");//classe para utilização do arquivo com configurções do serivdor mysql
         String url = "jdbc:mysql://localhost/biblioteca";// drive servidor e banco de dados a serem utilizados e indicação do banco a ser utilizado
         String user ="root";// usuario do banco de dados
         String senha ="";//senha do usuario do banco de dados    
@@ -40,4 +41,8 @@ public class DAO {
             pst.close();//fechando o ambiente de conexão
             System.out.println("Execuçao da Query fechada\n");
        }} 
+    public Connection getCon() {
+    return this.con;
+}
+
 } 
