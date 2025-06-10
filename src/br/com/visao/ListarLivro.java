@@ -35,7 +35,8 @@ public class ListarLivro extends javax.swing.JFrame {
 
     try {
         LivroDAO dao = new LivroDAO();
-        ArrayList<Livro> lista = dao.pesquisarComCategoriaENomeAutor(); // join entre livro, categoria e autor
+        ArrayList<Livro> lista = dao.listarLivrosComProcedure();
+          // join entre livro, categoria e autor
 
         for (Livro l : lista) {
             modelo.addRow(new Object[]{

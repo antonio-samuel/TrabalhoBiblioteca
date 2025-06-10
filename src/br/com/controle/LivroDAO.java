@@ -2,6 +2,7 @@ package br.com.controle;
 
 
 import br.com.modelo.Livro;
+import com.mysql.cj.jdbc.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -159,6 +160,36 @@ public class LivroDAO extends DAO {
         
 
     }
+    public ArrayList<Livro> listarLivrosComProcedure() {
+    ArrayList<Livro> lista = new ArrayList<>();
+    
+    try {
+        DAO dao = new DAO();
+        CallableStatement stmt = (CallableStatement) con.prepareCall("{ call listar_livros_completo() }");
+        ResultSet rs = stmt.executeQuery();
+        
+        while (rs.next()) {
+            Livro l = new Livro();
+            l.setId(rs.getInt("id"));
+            l.setTitulo(rs.getString("titulo"));
+            l.setSinopse(rs.getString("sinopse"));
+            l.setValor(rs.getDouble("valor"));
+            l.setNomeCategoria(rs.getString("nomeCategoria"));
+            l.setNomeAutor(rs.getString("nomeAutor"));
+            
+            lista.add(l);
+        }
+        
+        rs.close();
+        stmt.close();
+        con.close();
+    } catch (Exception e) {
+        System.out.println("Erro ao listar livros com procedure: " + e.getMessage());
+    }
+    
+    return lista;
+}
+
 
     private static class SQLException {
 
