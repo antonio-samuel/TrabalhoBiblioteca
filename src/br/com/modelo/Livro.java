@@ -63,22 +63,23 @@ public class Livro {
         this.valor = valor;
     }
 
-    public void setNomeAutor(String string) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public String getNomeCategoria() {
+        return nomeCategoria;
     }
 
-    public void setNomeCategoria(String string) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void setNomeCategoria(String nomeCategoria) {
+        this.nomeCategoria = nomeCategoria;
     }
 
-    public Object getNomeCategoria() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public String getNomeAutor() {
+        return nomeAutor;
     }
 
-    public Object getNomeAutor() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void setNomeAutor(String nomeAutor) {
+        this.nomeAutor = nomeAutor;
     }
 
+ 
     
     
 }

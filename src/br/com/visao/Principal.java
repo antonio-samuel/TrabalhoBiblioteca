@@ -29,9 +29,9 @@ public class Principal extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        jMcadastrar = new javax.swing.JMenuItem();
+        jcbdeletar = new javax.swing.JCheckBoxMenuItem();
+        jMalterar = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
@@ -51,15 +51,30 @@ public class Principal extends javax.swing.JFrame {
 
         jMenu1.setText("Livros");
 
-        jMenuItem1.setText("Cadastrar");
-        jMenu1.add(jMenuItem1);
+        jMcadastrar.setText("Cadastrar");
+        jMcadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMcadastrarActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMcadastrar);
 
-        jCheckBoxMenuItem1.setSelected(true);
-        jCheckBoxMenuItem1.setText("Deletar");
-        jMenu1.add(jCheckBoxMenuItem1);
+        jcbdeletar.setSelected(true);
+        jcbdeletar.setText("Deletar");
+        jcbdeletar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbdeletarActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jcbdeletar);
 
-        jMenuItem2.setText("Alterar");
-        jMenu1.add(jMenuItem2);
+        jMalterar.setText("Alterar");
+        jMalterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMalterarActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMalterar);
 
         jMenuItem3.setText("Listar");
         jMenu1.add(jMenuItem3);
@@ -120,6 +135,21 @@ public class Principal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jcbdeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbdeletarActionPerformed
+        DeletarLivro  dl = new DeletarLivro();
+        dl.show();
+    }//GEN-LAST:event_jcbdeletarActionPerformed
+
+    private void jMcadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMcadastrarActionPerformed
+       CadastrarLivro  cl = new CadastrarLivro();
+        cl.show();
+    }//GEN-LAST:event_jMcadastrarActionPerformed
+
+    private void jMalterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMalterarActionPerformed
+        AlterarLivro al = new AlterarLivro();
+        al.show();
+    }//GEN-LAST:event_jMalterarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -156,16 +186,15 @@ public class Principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JMenuItem jMalterar;
+    private javax.swing.JMenuItem jMcadastrar;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
@@ -173,5 +202,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
+    private javax.swing.JCheckBoxMenuItem jcbdeletar;
     // End of variables declaration//GEN-END:variables
 }

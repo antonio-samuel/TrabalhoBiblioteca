@@ -103,33 +103,41 @@ public class LivroDAO extends DAO {
         }
     }
     
-    public ArrayList<Livro> pesquisarComCategoriaENomeAutor() {
+   public ArrayList<Livro> pesquisarComCategoriaENomeAutor() throws Exception {
     ArrayList<Livro> lista = new ArrayList<>();
     try {
         abrirBanco();
-        String query = "SELECT l.id, l.titulo, l.sinopse, l.valor, c.nome AS categoria, a.nome AS autor " +
-                       "FROM livro l " +
-                       "JOIN categoria c ON l.id_categoria = c.id " +
-                       "JOIN autor a ON l.id_autor = a.id";
-        pst = (PreparedStatement) con.prepareStatement(query);
+        String query = """
+            SELECT l.id, l.titulo, l.sinopse, l.valor,
+                   c.nome AS nomeCategoria,
+                   a.nome AS nomeAutor
+            FROM livro l
+            INNER JOIN categoria c ON l.id_categoria = c.id
+            INNER JOIN autor a ON l.id_autor = a.id
+        """;
+
+        pst = con.prepareStatement(query);
         ResultSet rs = pst.executeQuery();
-        Livro l;
+        
         while (rs.next()) {
-            l = new Livro();
+            Livro l = new Livro();
             l.setId(rs.getInt("id"));
             l.setTitulo(rs.getString("titulo"));
             l.setSinopse(rs.getString("sinopse"));
             l.setValor(rs.getDouble("valor"));
-            l.setNomeCategoria(rs.getString("categoria")); // novo atributo opcional
-            l.setNomeAutor(rs.getString("autor"));          // novo atributo opcional
+            l.setNomeCategoria(rs.getString("nomeCategoria"));
+            l.setNomeAutor(rs.getString("nomeAutor"));
             lista.add(l);
         }
+
         fecharBanco();
     } catch (Exception e) {
-        System.out.println("Erro: " + e.getMessage());
+        System.out.println("Erro ao listar livros: " + e.getMessage());
     }
+
     return lista;
 }
+
 
     public void editar(Livro l) {
         try {
