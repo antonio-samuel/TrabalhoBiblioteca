@@ -1,10 +1,9 @@
-
 -- phpMyAdmin SQL Dump
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 11/06/2025 às 02:00
+-- Tempo de geração: 16/06/2025 às 14:12
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -35,8 +34,8 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `listar_livros_completo` ()   BEGIN
         c.nome AS nomeCategoria,
         a.nome AS nomeAutor
     FROM livro l
-    JOIN categoria c ON l.idCategoria = c.id
-    JOIN autor a ON l.idAutor = a.id;
+    JOIN categoria c ON l.id_categoria = c.id
+    JOIN autor a ON l.id_autor = a.id;
 END$$
 
 --
@@ -108,7 +107,8 @@ INSERT INTO `autor` (`id`, `nome`) VALUES
 (13, 'Jane Austen'),
 (14, 'Steve Jobs'),
 (15, 'Elon Musk'),
-(16, 'J.K. Rowling');
+(16, 'J.K. Rowling'),
+(17, 'Arturo pascal');
 
 -- --------------------------------------------------------
 
@@ -141,7 +141,8 @@ INSERT INTO `categoria` (`id`, `nome`) VALUES
 (13, 'Romance'),
 (14, 'Biografia'),
 (15, 'Tecnologia'),
-(16, 'Fantasia');
+(16, 'Fantasia'),
+(17, 'suspense');
 
 -- --------------------------------------------------------
 
@@ -164,12 +165,37 @@ CREATE TABLE `livro` (
 --
 
 INSERT INTO `livro` (`id`, `titulo`, `sinopse`, `id_categoria`, `id_autor`, `valor`, `Autor_livro`) VALUES
-(1, 'O alienista', 'narra a história do Dr. Simão Bacamarte, um médico que funda um hospício chamado Casa Verde na vila de Itaguaí', 1, 1, 100.00, NULL),
+(1, 'O alien', 'narra a história do Dr. Simão Bacamarte, um médico que funda um hospício chamado Casa Verde na vila de Itaguaí', 1, 1, 120.00, NULL),
 (2, 'Fundação', 'Clássico da ficção científica sobre um império galáctico.', 1, 1, 59.90, NULL),
 (3, 'Orgulho e Preconceito', 'Romance entre Elizabeth Bennet e Mr. Darcy.', 2, 2, 39.90, NULL),
 (4, 'A Biografia de Steve Jobs', 'História do fundador da Apple.', 3, 3, 49.90, NULL),
 (5, 'O Futuro de Marte', 'Visão de Elon Musk sobre colonização espacial.', 1, 4, 42.00, NULL),
-(6, 'Harry Potter e a Pedra Filosofal', 'Um menino descobre que é um bruxo.', 5, 5, 69.90, NULL);
+(6, 'Harry Potter e a Pedra Filosofal', 'Um menino descobre que é um bruxo.', 5, 5, 69.90, NULL),
+(7, 'A jaula', 'narra um thriller sobre um homem que acaba preso numa jaula e conta com menos que a sorte para sair vivo', 17, 17, 80.00, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura stand-in para view `vw_livros_completo`
+-- (Veja abaixo para a visão atual)
+--
+CREATE TABLE `vw_livros_completo` (
+`id` int(11)
+,`titulo` varchar(200)
+,`sinopse` char(200)
+,`valor` decimal(10,2)
+,`nomeCategoria` varchar(100)
+,`nomeAutor` varchar(100)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para view `vw_livros_completo`
+--
+DROP TABLE IF EXISTS `vw_livros_completo`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_livros_completo`  AS SELECT `l`.`id` AS `id`, `l`.`titulo` AS `titulo`, `l`.`sinopse` AS `sinopse`, `l`.`valor` AS `valor`, `c`.`nome` AS `nomeCategoria`, `a`.`nome` AS `nomeAutor` FROM ((`livro` `l` join `categoria` `c` on(`l`.`id_categoria` = `c`.`id`)) join `autor` `a` on(`l`.`id_autor` = `a`.`id`)) ;
 
 --
 -- Índices para tabelas despejadas
@@ -203,19 +229,19 @@ ALTER TABLE `livro`
 -- AUTO_INCREMENT de tabela `autor`
 --
 ALTER TABLE `autor`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de tabela `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de tabela `livro`
 --
 ALTER TABLE `livro`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Restrições para tabelas despejadas
