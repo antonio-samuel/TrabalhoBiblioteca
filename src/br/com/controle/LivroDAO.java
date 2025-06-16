@@ -2,12 +2,20 @@ package br.com.controle;
 
 import br.com.controle.DAO;
 import br.com.modelo.Livro;
-import com.mysql.cj.jdbc.CallableStatement;
-import com.sun.jdi.connect.spi.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import java.sql.CallableStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Connection;
+import java.sql.CallableStatement;
+import java.sql.ResultSet;
+import java.sql.DriverManager; // caso use
+
+
+
 
 public class LivroDAO extends DAO {
 
@@ -84,26 +92,41 @@ public class LivroDAO extends DAO {
     }
 
     public void pesquisarPorId(Livro l) {
-        try {
-            abrirBanco();
-            String query = "SELECT * FROM livro WHERE id = ?";
-            pst = (PreparedStatement) con.prepareStatement(query);
-            pst.setInt(1, l.getId());
-            ResultSet rs = pst.executeQuery();
-            if (rs.next()) {
-                l.setTitulo(rs.getString("titulo"));
-                l.setSinopse(rs.getString("sinopse"));
-                l.setValor(rs.getDouble("valor"));
-                l.setIdCategoria(rs.getInt("id_categoria"));
-                l.setIdAutor(rs.getInt("id_autor"));
-            } else {
-                JOptionPane.showMessageDialog(null, "Livro não encontrado.");
-            }
-            fecharBanco();
-        } catch (Exception e) {
-            System.out.println("Erro: " + e.getMessage());
+    try {
+        abrirBanco();
+        String query = """
+            SELECT l.titulo, l.sinopse, l.valor,
+                   l.id_categoria, l.id_autor,
+                   c.nome AS nomeCategoria,
+                   a.nome AS nomeAutor
+            FROM livro l
+            JOIN categoria c ON l.id_categoria = c.id
+            JOIN autor a ON l.id_autor = a.id
+            WHERE l.id = ?
+        """;
+
+        pst = con.prepareStatement(query);
+        pst.setInt(1, l.getId());
+
+        ResultSet rs = pst.executeQuery();
+
+        if (rs.next()) {
+            l.setTitulo(rs.getString("titulo"));
+            l.setSinopse(rs.getString("sinopse"));
+            l.setValor(rs.getDouble("valor"));
+            l.setIdCategoria(rs.getInt("id_categoria"));
+            l.setIdAutor(rs.getInt("id_autor"));
+            l.setNomeCategoria(rs.getString("nomeCategoria"));
+            l.setNomeAutor(rs.getString("nomeAutor"));
+        } else {
+            JOptionPane.showMessageDialog(null, "Livro não encontrado.");
         }
+
+        fecharBanco();
+    } catch (Exception e) {
+        System.out.println("Erro: " + e.getMessage());
     }
+}
     
    public ArrayList<Livro> pesquisarComCategoriaENomeAutor() throws Exception {
     ArrayList<Livro> lista = new ArrayList<>();
@@ -161,16 +184,18 @@ public class LivroDAO extends DAO {
         
 
     }
-    public ArrayList<Livro> listarLivrosComProcedure() {
+  public ArrayList<Livro> listarLivrosComProcedure() {
     ArrayList<Livro> lista = new ArrayList<>();
-    
+
     try {
         DAO dao = new DAO();
         dao.abrirBanco();
-        Connection con = (Connection) dao.getCon(); // <- aqui está o segredo
+        Connection con;
+        con = dao.getCon();
 
-        CallableStatement stmt;
-        stmt = con.prepareCall("{ call listar_livros_completo() }");
+       PreparedStatement stmt = con.prepareStatement("CALL listar_livros_completo()");
+
+        // Apenas execute, sem setar nem registrar parâmetros
         ResultSet rs = stmt.executeQuery();
 
         while (rs.next()) {
@@ -181,25 +206,20 @@ public class LivroDAO extends DAO {
             l.setValor(rs.getDouble("valor"));
             l.setNomeCategoria(rs.getString("nomeCategoria"));
             l.setNomeAutor(rs.getString("nomeAutor"));
-
             lista.add(l);
         }
 
         rs.close();
         stmt.close();
         con.close();
+
     } catch (Exception e) {
-        System.out.println("Erro ao listar livros com procedure: " + e.getMessage());
+        System.out.println("Erro ao listar livros com procedure: " + e.getClass().getName() + " - " + e.getMessage());
+        e.printStackTrace();
     }
 
     return lista;
 }
-
-
-    private static class SQLException {
-
-        public SQLException() {
-        }
-    }
 }
+
 

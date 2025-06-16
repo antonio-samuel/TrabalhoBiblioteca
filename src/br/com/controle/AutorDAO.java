@@ -5,6 +5,7 @@ import br.com.modelo.Autor;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -96,5 +97,25 @@ public class AutorDAO extends DAO {
         }
         return lista;
     }
+    
+    public int buscarIdPorNome(String nome) throws SQLException, Exception {
+    abrirBanco();
+    int id = -1;
+    try {
+        String sql = "SELECT id FROM categoria WHERE nome = ?";
+        PreparedStatement pst = con.prepareStatement(sql);
+        pst.setString(1, nome);
+        ResultSet rs = pst.executeQuery();
+        if (rs.next()) {
+            id = rs.getInt("id");
+        }
+        rs.close();
+        pst.close();
+    } catch (Exception e) {
+        System.out.println("Erro: " + e.getMessage());
+    }
+    fecharBanco();
+    return id;
+}
 }
 

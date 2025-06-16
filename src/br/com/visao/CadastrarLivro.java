@@ -168,9 +168,14 @@ if (categoria == null) {
  l.setIdAutor(idAutor);
  l.setIdCategoria(idCategoria);
 
+  
  try{
      dao.inserir(l);
-    JOptionPane.showMessageDialog(this, "Livro cadastrado com sucesso!");     
+    JOptionPane.showMessageDialog(this, "Livro cadastrado com sucesso!");
+      this.dispose();
+
+        // Abrir o menu principal
+        new Principal().setVisible(true);
  }
   catch(Exception ex) {
             Logger.getLogger(LivroDAO.class.getName()).log(Level.SEVERE, null, ex);

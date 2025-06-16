@@ -151,7 +151,8 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMcadastrarActionPerformed
 
     private void jMlistarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMlistarActionPerformed
-        AlterarLivro al = new AlterarLivro();
+        alterarLivro al;
+        al = new alterarLivro();
         al.show();
     }//GEN-LAST:event_jMlistarActionPerformed
 

@@ -96,6 +96,11 @@ public class DeletarLivro extends javax.swing.JFrame {
         dao.deletar(l);
         jTid.setText("");
         jTid.requestFocus();
+          
+        this.dispose();
+
+        // Abrir o menu principal
+        new Principal().setVisible(true);
          }
          catch (Exception e) {
            JOptionPane.showMessageDialog(this,"Erro de : " 
