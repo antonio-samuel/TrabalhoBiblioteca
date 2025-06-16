@@ -7,22 +7,30 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class AutorDAO extends DAO {
 
-    public void inserir(Autor a) {
-        try {
-            abrirBanco();
-            String query = "INSERT INTO autor (id, nome) VALUES (null, ?)";
-            pst = (PreparedStatement) con.prepareStatement(query);
+   public boolean inserir(Autor a) {
+    String query = "INSERT INTO autor (nome) VALUES (?)"; // O ID será gerado automaticamente
+
+    try {
+        abrirBanco();
+        try (PreparedStatement pst = con.prepareStatement(query)) {
             pst.setString(1, a.getNome());
-            pst.execute();
+            int linhasAfetadas = pst.executeUpdate(); // Retorna o número de linhas modificadas
             fecharBanco();
-        } catch (Exception e) {
-            System.out.println("Erro: " + e.getMessage());
+            return linhasAfetadas > 0; // Retorna true se a inserção for bem-sucedida
+        } catch (Exception ex) {
+            Logger.getLogger(AutorDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+    } catch (SQLException e) {
+        System.err.println("Erro ao cadastrar autor: " + e.getMessage());
     }
+    return false; // Retorna false caso haja erro
+}
 
     public void deletar(Autor a) {
         try {
@@ -138,6 +146,67 @@ public class AutorDAO extends DAO {
     } finally {
         fecharBanco();
     }
+    
+    /**
+     *
+     * @param nome
+     * @return
+     * @throws Exception
+     */
+  
+}public boolean autorExiste(String nome) throws Exception {
+    String query = "SELECT COUNT(*) FROM autor WHERE nome = ?";
+
+    try {
+        abrirBanco();
+        try (PreparedStatement pst = con.prepareStatement(query)) {
+            pst.setString(1, nome);
+            try (ResultSet rs = pst.executeQuery()) {
+                if (rs.next() && rs.getInt(1) > 0) {
+                    return true; // Autor já existe
+                }
+            }
+        }
+    } catch (SQLException e) {
+        System.err.println("Erro ao verificar autor: " + e.getMessage());
+    } finally {
+        fecharBanco();
+    }
+    return false; // Autor não encontrado
+}
+public Autor pesquisarRegistro(String criterio) throws Exception {
+    Autor autor = null;
+    String query = "SELECT * FROM autor WHERE id = ? OR nome LIKE ?";
+
+    try {
+        abrirBanco();
+
+        try (PreparedStatement pst = con.prepareStatement(query)) {
+            // Se o usuário digitar um número, pesquisa por ID; se for texto, pesquisa por Nome
+            try {
+                pst.setInt(1, Integer.parseInt(criterio));
+            } catch (NumberFormatException e) {
+                pst.setNull(1, java.sql.Types.INTEGER);
+            }
+            pst.setString(2, "%" + criterio + "%");
+
+            try (ResultSet rs = pst.executeQuery()) {
+                if (rs.next()) {
+                    autor = new Autor();
+                    autor.setId(rs.getInt("id"));
+                    autor.setNome(rs.getString("nome"));
+                }
+            }
+        }
+
+        fecharBanco();
+
+    } catch (SQLException e) {
+        System.err.println("Erro ao pesquisar autor: " + e.getMessage());
+    }
+
+    return autor;
 }
 }
+
 

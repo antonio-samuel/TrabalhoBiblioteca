@@ -116,4 +116,75 @@ public class CategoriaDAO extends DAO {
     fecharBanco();
     return id;
 }
+
+    private static class SQLException {
+
+        public SQLException() {
+        }
+    }
+    public class CadastroCategoriaDAO {
+
+    public boolean categoriaExiste(String nome) throws Exception {
+        String query = "SELECT COUNT(*) FROM categoria WHERE nome = ?";
+
+        abrirBanco();
+        try (PreparedStatement pst = con.prepareStatement(query)) {
+            pst.setString(1, nome);
+            try (ResultSet rs = pst.executeQuery()) {
+                if (rs.next() && rs.getInt(1) > 0) {
+                    return true; // Categoria já existe
+                }
+            }
+        }
+        fecharBanco();
+        return false; // Categoria não encontrada
+    }
+
+    public boolean cadastrarCategoria(String nome) throws Exception {
+        if (categoriaExiste(nome)) {
+            System.out.println("Erro: Categoria já cadastrada!");
+            return false;
+        }
+
+        String query = "INSERT INTO categoria (nome) VALUES (?)";
+        abrirBanco();
+        try (PreparedStatement pst = con.prepareStatement(query)) {
+            pst.setString(1, nome);
+            pst.executeUpdate();
+        }
+        fecharBanco();
+        return true;
+    }
+    }
+      public boolean categoriaExiste(String nome) throws java.sql.SQLException, Exception {
+        String query = "SELECT COUNT(*) FROM categoria WHERE nome = ?";
+
+        abrirBanco();
+        try (PreparedStatement pst = con.prepareStatement(query)) {
+            pst.setString(1, nome);
+            try (ResultSet rs = pst.executeQuery()) {
+                if (rs.next() && rs.getInt(1) > 0) {
+                    return true; // Categoria já existe
+                }
+            }
+        }
+        fecharBanco();
+        return false; // Categoria não encontrada
+    }
+
+    public boolean cadastrarCategoria(String nome) throws java.sql.SQLException, Exception {
+        if (categoriaExiste(nome)) {
+            System.out.println("Erro: Categoria já cadastrada!");
+            return false;
+        }
+
+        String query = "INSERT INTO categoria (nome) VALUES (?)";
+        abrirBanco();
+        try (PreparedStatement pst = con.prepareStatement(query)) {
+            pst.setString(1, nome);
+            pst.executeUpdate();
+        }
+        fecharBanco();
+        return true;
+    }
 }

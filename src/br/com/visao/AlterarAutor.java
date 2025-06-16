@@ -7,6 +7,7 @@ package br.com.visao;
 import br.com.controle.AutorDAO;
 import br.com.modelo.Autor;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -63,21 +64,21 @@ public class AlterarAutor extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(75, 75, 75)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTnomea, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
-                            .addComponent(jTidautor)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
+                            .addComponent(jTidautor, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
+                            .addComponent(jTnomea)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(32, 32, 32)
                         .addComponent(jBpesquisar)
-                        .addGap(36, 36, 36)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                         .addComponent(jBalterar)))
-                .addContainerGap(122, Short.MAX_VALUE))
+                .addContainerGap(109, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -101,35 +102,29 @@ public class AlterarAutor extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBpesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBpesquisarActionPerformed
-       try {
+     
+   
+    try {
         AutorDAO ca = new AutorDAO();
         Autor autor = null;
 
-        // Se o campo de ID estiver preenchido, busca por ID
+        // Verifica se o ID ou Nome foi preenchido
         if (!jTidautor.getText().isEmpty()) {
-            autor = ca.buscarPorNome(jTidautor.getText());
-        }
-        // Se o campo de nome estiver preenchido, busca por nome
-        else if (!jTnomea.getText().isEmpty()) {
-            autor = ca.buscarPorNome(jTnomea.getText());
+            autor = ca.pesquisarRegistro(jTidautor.getText()); // Alteração para pesquisar um único autor
+        } else if (!jTnomea.getText().isEmpty()) {
+            autor = ca.pesquisarRegistro(jTnomea.getText());
         }
 
         if (autor != null) {
-            // Preenche os campos com os dados encontrados
-            jTidautor.setText(String.valueOf(autor.getId()));
+            jTidautor.setText(String.valueOf(autor.getId())); // Removida conversão incorreta (char)
             jTnomea.setText(autor.getNome());
         } else {
-            System.out.println("Nenhum autor encontrado.");
+            JOptionPane.showMessageDialog(null, "Autor não encontrado.");
         }
 
     } catch (Exception ex) {
-        System.out.println("Erro ao pesquisar autor: " + ex.getMessage());
+        JOptionPane.showMessageDialog(null, "Erro ao pesquisar: " + ex.getMessage());
     }
-
-
-
-        jTidautor.setText(null);
-        jTidautor.requestFocus();
     }//GEN-LAST:event_jBpesquisarActionPerformed
 
     private void jBalterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBalterarActionPerformed

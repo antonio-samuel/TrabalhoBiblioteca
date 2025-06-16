@@ -72,18 +72,35 @@ public class CadastrarAutor extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBcadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBcadastrarActionPerformed
-        try {
-              Autor a = new Autor();
-        AutorDAO ad = new AutorDAO();
      
-        a.setNome(jTnomeAutor.getText());
-        ad.inserir(a);
-        
-        jTnomeAutor.setText("");
-        JOptionPane.showMessageDialog(this,"Autor cadastrado com sucesso!");
-        } catch (Exception e) {
-        JOptionPane.showMessageDialog(this,"Erro de : " + e.getMessage());
+    try {
+        AutorDAO ca = new AutorDAO();
+        String nomeAutor = jTnomeAutor.getText();
+
+        // Verifica se o campo não está vazio
+        if (nomeAutor.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "O nome do autor não pode estar vazio!");
+            return;
         }
+
+        // Verifica se o autor já existe antes de cadastrar
+        if (ca.autorExiste(nomeAutor)) {
+            JOptionPane.showMessageDialog(null, "Erro: Autor já cadastrado!");
+        } else {
+            Autor autor = new Autor();
+            autor.setNome(nomeAutor);
+            
+            if (ca.inserir(autor)) {
+                JOptionPane.showMessageDialog(null, "Autor cadastrado com sucesso!");
+                jTnomeAutor.setText(""); // Limpa o campo
+            } else {
+                JOptionPane.showMessageDialog(null, "Erro ao cadastrar autor.");
+            }
+        }
+    } catch (Exception ex) {
+        JOptionPane.showMessageDialog(null, "Erro ao cadastrar: " + ex.getMessage());
+    }
+
       
         
         
