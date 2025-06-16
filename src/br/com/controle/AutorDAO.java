@@ -117,5 +117,27 @@ public class AutorDAO extends DAO {
     fecharBanco();
     return id;
 }
+    
+    public boolean alterarRegistro(Autor autor) throws Exception {
+    String query = "UPDATE autor SET nome = ? WHERE id = ?";
+
+    try {
+        abrirBanco();
+
+        try (PreparedStatement pst = con.prepareStatement(query)) {
+            pst.setString(1, autor.getNome()); // Define o novo nome
+            pst.setInt(2, autor.getId());      // Define o ID para encontrar o autor
+
+            int linhasAfetadas = pst.executeUpdate();
+            return linhasAfetadas > 0; // Retorna true se pelo menos uma linha foi alterada
+        }
+
+    } catch (SQLException e) {
+        System.err.println("Erro ao alterar autor: " + e.getMessage());
+        return false;
+    } finally {
+        fecharBanco();
+    }
+}
 }
 

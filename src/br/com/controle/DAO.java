@@ -24,7 +24,7 @@ public class DAO {
     public void abrirBanco() throws SQLException {// criando metodo para acessar o banco
       try {
         Class.forName("com.mysql.cj.jdbc.Driver");//classe para utilização do arquivo com configurções do serivdor mysql
-        String url = "jdbc:mysql://localhost:3306/biblioteca?noAccessToProcedureBodies=true";
+        String url = "jdbc:mysql://localhost:3306/biblioteca1?noAccessToProcedureBodies=true";
         String user ="root";// usuario do banco de dados
         String senha ="";//senha do usuario do banco de dados    
         con = DriverManager.getConnection(url, user, senha);//metodo que usa os parametros para conectar com o banco
