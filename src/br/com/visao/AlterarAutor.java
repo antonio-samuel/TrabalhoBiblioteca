@@ -141,16 +141,16 @@ public class AlterarAutor extends javax.swing.JFrame {
             boolean atualizado = ca.alterarRegistro(autor);
 
             if (atualizado) {
-                System.out.println("Autor atualizado com sucesso!");
+                 JOptionPane.showMessageDialog(null,"Autor atualizado com sucesso!");
             } else {
-                System.out.println("Erro ao atualizar autor.");
+                 JOptionPane.showMessageDialog(null,"Erro ao atualizar autor.");
             }
         } else {
-            System.out.println("Preencha ambos os campos para alterar.");
+             JOptionPane.showMessageDialog(null,"Preencha ambos os campos para alterar.");
         }
 
     } catch (Exception ex) {
-        System.out.println("Erro ao alterar autor: " + ex.getMessage());
+        JOptionPane.showMessageDialog(null,"Erro ao alterar autor: " + ex.getMessage());
     }
 
 

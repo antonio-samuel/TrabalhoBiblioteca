@@ -27,6 +27,7 @@ public class Principal extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMcadastrar = new javax.swing.JMenuItem();
@@ -37,17 +38,19 @@ public class Principal extends javax.swing.JFrame {
         jMcadastrarautor = new javax.swing.JMenuItem();
         jMdeletarautor = new javax.swing.JMenuItem();
         jMListarautor = new javax.swing.JMenuItem();
-        jMlistarautor = new javax.swing.JMenuItem();
+        jMalterarautor = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
-        jMenuItem7 = new javax.swing.JMenuItem();
-        jMenuItem8 = new javax.swing.JMenuItem();
-        jMenuItem9 = new javax.swing.JMenuItem();
-        jMenuItem10 = new javax.swing.JMenuItem();
+        jMcadastrarcategoria = new javax.swing.JMenuItem();
+        jMdelete = new javax.swing.JMenuItem();
+        jMlistarrcategoria = new javax.swing.JMenuItem();
+        jMalterarcategoria = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         jLabel1.setText("SGB");
+
+        jLabel2.setText("Sistema Gerenciador de Biblioteca");
 
         jMenu1.setText("Livros");
 
@@ -112,29 +115,49 @@ public class Principal extends javax.swing.JFrame {
         });
         jMenu2.add(jMListarautor);
 
-        jMlistarautor.setText("Alterar");
-        jMlistarautor.addActionListener(new java.awt.event.ActionListener() {
+        jMalterarautor.setText("Alterar");
+        jMalterarautor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMlistarautorActionPerformed(evt);
+                jMalterarautorActionPerformed(evt);
             }
         });
-        jMenu2.add(jMlistarautor);
+        jMenu2.add(jMalterarautor);
 
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("Categorias");
 
-        jMenuItem7.setText("Cadastrar");
-        jMenu3.add(jMenuItem7);
+        jMcadastrarcategoria.setText("Cadastrar");
+        jMcadastrarcategoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMcadastrarcategoriaActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMcadastrarcategoria);
 
-        jMenuItem8.setText("Deletar");
-        jMenu3.add(jMenuItem8);
+        jMdelete.setText("Deletar");
+        jMdelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMdeleteActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMdelete);
 
-        jMenuItem9.setText("Listar");
-        jMenu3.add(jMenuItem9);
+        jMlistarrcategoria.setText("Listar");
+        jMlistarrcategoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMlistarrcategoriaActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMlistarrcategoria);
 
-        jMenuItem10.setText("Alterar");
-        jMenu3.add(jMenuItem10);
+        jMalterarcategoria.setText("Alterar");
+        jMalterarcategoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMalterarcategoriaActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMalterarcategoria);
 
         jMenuBar1.add(jMenu3);
 
@@ -145,16 +168,23 @@ public class Principal extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(149, 149, 149)
-                .addComponent(jLabel1)
-                .addContainerGap(159, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(149, 149, 149)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(107, 107, 107)
+                        .addComponent(jLabel2)))
+                .addContainerGap(114, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(87, 87, 87)
                 .addComponent(jLabel1)
-                .addContainerGap(126, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addContainerGap(104, Short.MAX_VALUE))
         );
 
         pack();
@@ -190,15 +220,35 @@ public class Principal extends javax.swing.JFrame {
        da.show();
     }//GEN-LAST:event_jMdeletarautorActionPerformed
 
-    private void jMlistarautorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMlistarautorActionPerformed
-        ListarAutor aa = new ListarAutor();
-        aa.show();
-    }//GEN-LAST:event_jMlistarautorActionPerformed
-
-    private void jMListarautorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMListarautorActionPerformed
+    private void jMalterarautorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMalterarautorActionPerformed
         AlterarAutor aa = new AlterarAutor();
         aa.show();
+    }//GEN-LAST:event_jMalterarautorActionPerformed
+
+    private void jMListarautorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMListarautorActionPerformed
+       ListarAutor aa = new ListarAutor();
+        aa.show();
     }//GEN-LAST:event_jMListarautorActionPerformed
+
+    private void jMcadastrarcategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMcadastrarcategoriaActionPerformed
+        CadastrarCategoria cc = new CadastrarCategoria();
+        cc.show();
+    }//GEN-LAST:event_jMcadastrarcategoriaActionPerformed
+
+    private void jMdeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMdeleteActionPerformed
+       DeletarCategoria dc = new DeletarCategoria();
+       dc.show();
+    }//GEN-LAST:event_jMdeleteActionPerformed
+
+    private void jMlistarrcategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMlistarrcategoriaActionPerformed
+        ListarCategoria lc = new ListarCategoria();
+        lc.show();
+    }//GEN-LAST:event_jMlistarrcategoriaActionPerformed
+
+    private void jMalterarcategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMalterarcategoriaActionPerformed
+        AlterarCategoria ac = new AlterarCategoria();
+        ac.show();
+    }//GEN-LAST:event_jMalterarcategoriaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -237,21 +287,22 @@ public class Principal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenuItem jMListarautor;
+    private javax.swing.JMenuItem jMalterarautor;
+    private javax.swing.JMenuItem jMalterarcategoria;
     private javax.swing.JMenuItem jMcadastrar;
     private javax.swing.JMenuItem jMcadastrarautor;
+    private javax.swing.JMenuItem jMcadastrarcategoria;
     private javax.swing.JMenuItem jMdeletarautor;
+    private javax.swing.JMenuItem jMdelete;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem7;
-    private javax.swing.JMenuItem jMenuItem8;
-    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JMenuItem jMlistar;
-    private javax.swing.JMenuItem jMlistarautor;
+    private javax.swing.JMenuItem jMlistarrcategoria;
     private javax.swing.JCheckBoxMenuItem jcbdeletar;
     // End of variables declaration//GEN-END:variables
 }

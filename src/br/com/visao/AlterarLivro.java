@@ -41,13 +41,13 @@ public class AlterarLivro extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jTIdLivro = new javax.swing.JTextField();
-        jTnomea = new javax.swing.JTextField();
         jTnomel = new javax.swing.JTextField();
         jTpreco = new javax.swing.JTextField();
         jTSinopse = new javax.swing.JTextField();
-        jTcategoria = new javax.swing.JTextField();
         jBpesquisar = new javax.swing.JButton();
         jBalterar = new javax.swing.JButton();
+        jTnomea = new javax.swing.JTextField();
+        jTcategoria = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -93,8 +93,8 @@ public class AlterarLivro extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(38, 38, 38)
                         .addComponent(jBpesquisar)
-                        .addGap(81, 81, 81)
-                        .addComponent(jBalterar))
+                        .addGap(83, 83, 83)
+                        .addComponent(jBalterar, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel6)
@@ -103,19 +103,15 @@ public class AlterarLivro extends javax.swing.JFrame {
                             .addComponent(jLabel3)
                             .addComponent(jLabel2)
                             .addComponent(jLabel1))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(8, 8, 8)
-                                .addComponent(jTIdLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTnomel, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                                    .addComponent(jTnomea)
-                                    .addComponent(jTpreco)
-                                    .addComponent(jTSinopse)
-                                    .addComponent(jTcategoria))))))
-                .addContainerGap(115, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTnomel)
+                            .addComponent(jTpreco)
+                            .addComponent(jTSinopse)
+                            .addComponent(jTIdLivro)
+                            .addComponent(jTnomea)
+                            .addComponent(jTcategoria, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE))))
+                .addContainerGap(97, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -124,11 +120,11 @@ public class AlterarLivro extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jTIdLivro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(9, 9, 9)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jTnomea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(9, 9, 9)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jTnomel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -141,14 +137,14 @@ public class AlterarLivro extends javax.swing.JFrame {
                     .addComponent(jLabel5)
                     .addComponent(jTSinopse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
                     .addComponent(jTcategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(36, 36, 36)
+                .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBalterar)
                     .addComponent(jBpesquisar))
-                .addContainerGap(69, Short.MAX_VALUE))
+                .addContainerGap(66, Short.MAX_VALUE))
         );
 
         pack();
@@ -187,45 +183,44 @@ public class AlterarLivro extends javax.swing.JFrame {
     }//GEN-LAST:event_jBpesquisarActionPerformed
 
     private void jBalterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBalterarActionPerformed
-         try {
-        // 1. Coletar os dados da tela
+          try {
         int id = Integer.parseInt(jTIdLivro.getText());
         String titulo = jTnomel.getText();
         String sinopse = jTSinopse.getText();
         double valor = Double.parseDouble(jTpreco.getText());
 
-        String nomeCategoria = jTcategoria.getText();
-        String nomeAutor = jTnomea.getText();
+        String nomeCategoria = jTcategoria.getText().trim();
+        String nomeAutor = jTnomea.getText().trim();
 
-
-
-        // 2. Buscar os objetos categoria e autor
+        LivroDAO livroDAO = new LivroDAO();
         CategoriaDAO catDAO = new CategoriaDAO();
         AutorDAO autDAO = new AutorDAO();
 
-        Categoria categoria = catDAO.buscarPorNome(nomeCategoria);
-        Autor autor = autDAO.buscarPorNome(nomeAutor);
+        // Busca os dados antigos do livro para manter os IDs
+        Livro livro = new Livro();
+        livro.setId(id);
+        livroDAO.pesquisarPorId(livro); // método preenche os dados dentro do objeto
 
-        if (categoria == null || autor == null) {
-            JOptionPane.showMessageDialog(null, "Autor ou Categoria não encontrados.");
+        if (livro == null) {
+            JOptionPane.showMessageDialog(null, "Livro não encontrado.");
             return;
         }
 
-        // 3. Criar objeto Livro
-        Livro livro = new Livro();
-        livro.setId(id);
-        livro.setTitulo(titulo);
-        livro.setSinopse(sinopse);
-        livro.setValor(valor);
-        livro.setIdCategoria(categoria.getId());
-        livro.setIdAutor(autor.getId());
+        // Atualiza nomes de autor e categoria diretamente
+        catDAO.atualizarNome(livro.getIdCategoria(), nomeCategoria);
+        autDAO.atualizarNome(livro.getIdAutor(), nomeAutor);
 
-        // 4. Chamar o DAO para alterar
-        LivroDAO livroDAO = new LivroDAO();
-        livroDAO.editar(livro);
+        // Atualiza o restante dos dados do livro
+        Livro novoLivro = new Livro();
+        novoLivro.setId(id);
+        novoLivro.setTitulo(titulo);
+        novoLivro.setSinopse(sinopse);
+        novoLivro.setValor(valor);
+        novoLivro.setIdCategoria(livro.getIdCategoria());
+        novoLivro.setIdAutor(livro.getIdAutor());
 
+        livroDAO.editar(novoLivro);
         JOptionPane.showMessageDialog(null, "Livro alterado com sucesso!");
-
     } catch (Exception e) {
         JOptionPane.showMessageDialog(null, "Erro ao alterar livro: " + e.getMessage());
     }
@@ -269,6 +264,7 @@ public class AlterarLivro extends javax.swing.JFrame {
             }
         });
     }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBalterar;

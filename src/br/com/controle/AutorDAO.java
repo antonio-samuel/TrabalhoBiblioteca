@@ -207,6 +207,21 @@ public Autor pesquisarRegistro(String criterio) throws Exception {
 
     return autor;
 }
+
+public void atualizarNome(int id, String novoNome) {
+    try {
+        abrirBanco();
+        String sql = "UPDATE autor SET nome = ? WHERE id = ?";
+        pst = con.prepareStatement(sql);
+        pst.setString(1, novoNome);
+        pst.setInt(2, id);
+        pst.executeUpdate();
+        fecharBanco();
+    } catch (Exception e) {
+        System.out.println("Erro ao atualizar nome do autor: " + e.getMessage());
+    }
+}
+
 }
 
 

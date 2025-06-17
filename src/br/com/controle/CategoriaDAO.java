@@ -44,7 +44,19 @@ public class CategoriaDAO extends DAO {
             System.out.println("Erro: " + e.getMessage());
         }
     }
-
+      public void deletar(Categoria a) {
+        try {
+            abrirBanco();
+            String query = "DELETE FROM categoria WHERE id = ?";
+            pst = (PreparedStatement) con.prepareStatement(query);
+            pst.setInt(1, a.getId());
+            pst.execute();
+            fecharBanco();
+        } catch (Exception e) {
+            System.out.println("Erro: " + e.getMessage());
+        }
+    }
+    
     public Categoria buscarPorNome(String nome) {
     Categoria c = null;
     try {
@@ -196,6 +208,66 @@ public class CategoriaDAO extends DAO {
         return true;
     }
     
-   
+    public void atualizarNome(int id, String novoNome) {
+    try {
+        abrirBanco();
+        String sql = "UPDATE categoria SET nome = ? WHERE id = ?";
+        pst = con.prepareStatement(sql);
+        pst.setString(1, novoNome);
+        pst.setInt(2, id);
+        pst.executeUpdate();
+        fecharBanco();
+    } catch (Exception e) {
+        System.out.println("Erro ao atualizar nome da categoria: " + e.getMessage());
+    }
+}
+
+    public Categoria pesquisarRegistro(String criterio) throws Exception {
+    Categoria categoria = null;
+    String query = "SELECT * FROM categoria WHERE id = ? OR nome LIKE ?";
+
+    abrirBanco();
+    try (PreparedStatement pst = con.prepareStatement(query)) {
+        // Se o critério for número, tenta pesquisar por ID; senão, pesquisa por nome
+        try {
+            pst.setInt(1, Integer.parseInt(criterio));
+        } catch (NumberFormatException e) {
+            pst.setNull(1, java.sql.Types.INTEGER);
+        }
+        pst.setString(2, "%" + criterio + "%");
+        
+        try (ResultSet rs = pst.executeQuery()) {
+            if (rs.next()) {
+                categoria = new Categoria();
+                categoria.setId(rs.getInt("id"));
+                categoria.setNome(rs.getString("nome"));
+            }
+        }
+    }
+    fecharBanco();
+
+    return categoria;
+}
+
+     public boolean alterarRegistro(Categoria categoria) throws Exception {
+    String query = "UPDATE categoria SET nome = ? WHERE id = ?";
+    boolean sucesso = false;
+
+    try {
+        abrirBanco();
+        try (PreparedStatement pst = con.prepareStatement(query)) {
+            pst.setString(1, categoria.getNome());
+            pst.setInt(2, categoria.getId());
+
+            int linhasAfetadas = pst.executeUpdate();
+            sucesso = linhasAfetadas > 0;
+        }
+    } finally {
+        fecharBanco(); // Sempre será executado, mesmo se ocorrer erro
+    }
+
+    return sucesso;
+}
+
     }
 
