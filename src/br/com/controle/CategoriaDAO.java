@@ -9,17 +9,25 @@ import javax.swing.JOptionPane;
 
 public class CategoriaDAO extends DAO {
 
-    public void inserir(Categoria c) {
-        try {
-            abrirBanco();
-            String query = "INSERT INTO categoria (id, nome) VALUES (null, ?)";
-            pst = (PreparedStatement) con.prepareStatement(query);
-            pst.setString(1, c.getNome());
-            pst.execute();
-            fecharBanco();
-        } catch (Exception e) {
-            System.out.println("Erro: " + e.getMessage());
-        }
+    public boolean inserirCategoria(Categoria c) {
+       try {
+    abrirBanco();
+    System.out.println("Banco conectado!");
+    String query = "INSERT INTO categoria (nome) VALUES (?)";
+    try (PreparedStatement pst = con.prepareStatement(query)) {
+        pst.setString(1, c.getNome());
+        System.out.println("Executando SQL...");
+        int linhasAfetadas = pst.executeUpdate();
+        System.out.println("Linhas afetadas: " + linhasAfetadas);
+        fecharBanco();
+        return linhasAfetadas > 0;
+    }
+  } catch (Exception ex) {
+    System.err.println("Erro geral: " + ex.getMessage());
+}
+        return false;
+
+
     }
 
     public void editar(Categoria c) {
@@ -187,4 +195,7 @@ public class CategoriaDAO extends DAO {
         fecharBanco();
         return true;
     }
-}
+    
+   
+    }
+

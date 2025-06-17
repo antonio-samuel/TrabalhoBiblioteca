@@ -4,6 +4,12 @@
  */
 package br.com.visao;
 
+import br.com.controle.AutorDAO;
+import br.com.controle.CategoriaDAO;
+import br.com.modelo.Autor;
+import br.com.modelo.Categoria;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author laboratorio
@@ -75,7 +81,36 @@ public class CadastrarCategoria extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       
+   
+    try {
+        CategoriaDAO cc = new CategoriaDAO();
+        String nomeCategoria = jTcategoria.getText();
+
+        if (nomeCategoria.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "O nome da categoria não pode estar vazio!");
+            return;
+        }
+
+        if (cc.categoriaExiste(nomeCategoria)) {
+            JOptionPane.showMessageDialog(null, "Erro: Categoria já cadastrada!");
+        } else {
+            Categoria categoria = new Categoria();
+            categoria.setNome(nomeCategoria);
+
+            if (cc.inserirCategoria(categoria)) {
+                JOptionPane.showMessageDialog(null, "Categoria cadastrada com sucesso!");
+                jTcategoria.setText(""); // Limpa o campo
+            } else {
+                JOptionPane.showMessageDialog(null, "Erro ao cadastrar categoria.");
+            }
+        }
+    } catch (Exception ex) {
+        JOptionPane.showMessageDialog(null, "Erro ao cadastrar: " + ex.getMessage());
+    }
+
+
+
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
